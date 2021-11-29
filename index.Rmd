@@ -1,0 +1,58 @@
+---
+title: "report"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(leaflet)
+library(RColorBrewer)
+library(maps)
+library(mapproj)
+library(patchwork)
+knitr::opts_chunk$set(echo = TRUE)
+source("analysis.R")
+source("chart1.R")
+source("chart2.R")
+source("chart3.R")
+```
+
+### Introduction with summary data
+
+A significant part of institutional discrimination faced by people of color in the United States is in the prison system. The disproportionate incarceration of people of color caused by racism and can further enhance the stereotypes and discrimination. Therefore, it is of great importance to explore the extend and possible explanations of the disproportionality in jails in the United States.
+
+The data set used by this analysis is the 1970-2018 national data set of incarceration that documents the population of prisons from multiple dimensions. By calculating, comparing, and visualizing, this report aims to analyze and present how and why the measure of incarceration vary by races. 
+
+Based on the calculations, the proportion of people of color in 2018 was `r summaryl$avg_color_prop_2018` and the proportion of people of color in jails in 2018 was `r summaryl$avg_color_jail_prop_2018`. These statistics are important since it showed that the proportion of people of color in jails is much higher than the actual proportion of people of color in local residence.And among all the states, the state that had highest proportion of people of color in jails is `r summaryl$highest_in_jail_state` with the value of `r summaryl$highest_in_jail` and the state with the lowest proportion is `summaryl$lowest_in_jail_state` with the value of `r summaryl$lowest_in_jail`. These numbers give a idea about the maximum and minimum of proportion of people of color in jails. However, it does not mean that the two state has strongest or weakest racism because the proportion can be influenced by the proportion of people of color in the local residence. Also I found that `r summaryl$highest_in_jail_year` is the year in which the proportion of people of color in jails was the highest starting from 1990. The data set does not have data of people of color in jails before 1990. The the proportion of people of color in `r summaryl$highest_in_jail_year` was `r summaryl$avg_color_prop_1992` and the the proportion of people of color in jails in `r summaryl$highest_in_jail_year` was `r summaryl$avg_color_jail_prop_1992`. This shows that while the population proportion of people of color increased, the proportion of people of color in jails decreased. Which could be seen as a decrease of disapproportionality jails.
+
+
+### Time Trend Chart
+```{r, echo=FALSE}
+chart1
+```
+
+This shows the change of national average proportion of each race in jails from 1990 to 2018. There was no data of people of color before 1990 so I only included valid time period. This chart helps show the proportion of each race in jails and the change of the proportion, which represent which race is more easily to be arrested and which is not.
+In the chart, it is clear that black people were of the largest part of prisoners with the proportion much higher than other races. And white people were of the second smallest proportion only higher than Asians. Also from the graph we can see that the difference between the proportion of black and other races became smaller and smaller after 2007.
+
+
+
+### Variable Comparison Chart
+```{r, echo=FALSE}
+chart2
+```
+
+This chart shows the relation between the proportion of people of color in local residence and the proportion of people of color in jails, grouped by each state, in 2018. I include this chart because it can show whether the proportion of people of color in jails of each state is largely mainly influenced by the proportion in local residence, or there are other factors.
+From the chart we can see a clear positive trend, indicating the proportion of people of color in local jails is mainly decided by the proportion of local people of color. If there are more white people, then there would also be more white people in the jails.
+
+
+### Map
+```{r, echo=FALSE}
+chart3
+```
+
+This map shows the proportion of incarceration for people of color in 2018 for each state. It is not the proportion of people of color in jails we discussed above, but "what proportion of local people of color is sent to prisons". Since I found that the proportion of people of color is determined by local people proportion, we need to find another factor help us evaluate how disproportionate incarceration differ among states. This variable doesn't take into account whether local proportion of people of color is great or not.
+From the map we can see the difference among states. Something I noticed is that the five lightest states, which have highest proportion of incarceration of local people of color, are red states. Also, the blue states mostly have relatively dark color, indicating lower proportion of incarceration of local people of color.
+
+
